@@ -1,0 +1,13 @@
+import android.app.Activity;
+
+/**
+ * 
+ */
+
+/**
+ * @author amita11
+ *
+ */
+public class MapTesting extends Activity {
+
+}
