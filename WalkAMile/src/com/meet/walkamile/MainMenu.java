@@ -25,7 +25,7 @@ public class MainMenu extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+  // test commit by corbett to make sure git works
 
     //@Override
    // public boolean onCreateOptionsMenu(Menu menu) {
