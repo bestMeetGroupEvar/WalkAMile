@@ -192,9 +192,11 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int activity_main_menu=0x7f030000;
+        public static final int activity_on_route=0x7f030001;
     }
     public static final class menu {
         public static final int main_menu=0x7f090000;
+        public static final int on_route=0x7f090001;
     }
     public static final class string {
         public static final int action_settings=0x7f060016;
@@ -275,6 +277,7 @@ containing a value of this type.
         public static final int location_client_ulr_inactive_age_under_13=0x7f060012;
         public static final int location_client_ulr_inactive_age_unknown=0x7f060013;
         public static final int location_client_ulr_inactive_unknown_restriction=0x7f060014;
+        public static final int title_activity_on_route=0x7f060018;
     }
     public static final class style {
         /** 
