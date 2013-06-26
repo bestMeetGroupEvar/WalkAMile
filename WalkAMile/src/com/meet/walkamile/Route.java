@@ -6,7 +6,7 @@ import android.location.Location;
 
 public class Route {
 	
-	
+	 
 		//fileds
 	 ArrayList<Location> routes = new ArrayList<Location>();
 	 ArrayList<Boolean> hasBeen= new ArrayList<Boolean>();
