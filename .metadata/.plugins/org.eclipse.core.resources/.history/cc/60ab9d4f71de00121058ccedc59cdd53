@@ -1,0 +1,89 @@
+package com.meet.walkamile;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.view.Menu;
+
+public class OnRoute extends Activity {
+
+	private GoogleMap mMap;
+	private Location currentLocation;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_on_route);
+		 
+		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+                
+        //mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.));
+		 
+			getCurrentLocation();
+
+		 
+		 CameraPosition cameraPosition = new CameraPosition.Builder()
+		    .target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))      // Sets the center of the map to Mountain View
+		    .zoom(25)                   // Sets the zoom
+		    .bearing(90)                // Sets the orientation of the camera to east
+		    .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+		    .build();                   // Creates a CameraPosition from the builder
+		mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+	
+	}
+	
+	public void getCurrentLocation() {
+		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		ArrayList<String> providers = (ArrayList<String>) locationManager.getAllProviders();
+		
+		for (String s : providers) {
+			if (isBetterLocation(locationManager.getLastKnownLocation(s), currentLocation)) {
+				currentLocation = locationManager.getLastKnownLocation(s);
+			}
+		}
+	}
+	
+	public boolean isBetterLocation(Location loc,Location currentLocation) {
+		return true;
+		/*if (currentLocation == null) {
+			return true;
+		}
+		
+		long delta = loc.getTime()-currentLocation.getTime();
+		boolean isNewer = delta > 0;
+		
+		float acc = loc.getAccuracy()-currentLocation.getAccuracy();
+		boolean isAcc = acc > 0;
+		if (isNewer) {
+			return true;
+		} else {
+			return false;
+		}*/
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.on_route, menu);
+		return true;
+	}
+
+}
