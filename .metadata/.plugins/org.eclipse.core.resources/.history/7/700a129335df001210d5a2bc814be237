@@ -1,0 +1,43 @@
+package com.meet.walkamile;
+
+import java.util.ArrayList;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import android.location.Location;
+
+public class RouteManager {
+	
+	ArrayList<Route> loadedRoutes;
+	
+	public RouteManager() {
+		loadedRoutes = new ArrayList<Route>();
+	}
+	
+	public void saveRoute(Route route) {
+		ParseObject location = new ParseObject("Route");
+		location.put("name", route.getName());
+		location.saveInBackground();
+		for (Location loc:route.getlocations()) {
+		   ParseObject location = new ParseObject("Location");
+		   location.put("route", route.getName());
+		   location.put("lat", loc.getLatitude());
+		   location.put("lon", loc.getLongitude());
+		   location.saveInBackground();
+		}
+	}
+	
+	public ArrayList<Route> getRoutes(int amount) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
+		query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+		  @Override
+		  public void done(ParseObject object, ParseException e) {
+			  
+		  }
+		});
+	}
+
+}

@@ -1,0 +1,19 @@
+package com.meet.walkamile;
+
+import com.google.android.gms.maps.model.LatLng;
+
+public class Position {
+	
+	private LatLng latAndLon;
+	
+	public Position() {
+	}
+	
+	public Position() {
+	}
+	
+	public Position(LatLng latlan) {
+		latAndLan = latlan;
+	}
+
+}

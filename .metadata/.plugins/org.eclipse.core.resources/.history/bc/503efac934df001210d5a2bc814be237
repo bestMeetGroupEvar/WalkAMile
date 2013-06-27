@@ -1,0 +1,11 @@
+package com.meet.walkamile;
+
+public class RouteManager {
+	
+	
+	
+	public RouteManager() {
+		
+	}
+
+}

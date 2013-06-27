@@ -1,0 +1,13 @@
+package com.meet.walkamile;
+
+import java.util.ArrayList;
+
+public class RouteManager {
+	
+	ArrayList<Route> loadedRoutes;
+	
+	public RouteManager() {
+		loadedRoutes = new ArrayList<Route>();
+	}
+
+}
