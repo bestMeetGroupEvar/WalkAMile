@@ -26,7 +26,7 @@
         <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDh1ROVSW37iPBNal7oEpsZVItWx5QeAEE"/>
         <!-- created by amita11 at 2013-06-25 16:48:34 -->
         <activity android:label="@string/title_activity_on_route" android:name="com.meet.walkamile.OnRoute">
-                            <intent-filter>
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
