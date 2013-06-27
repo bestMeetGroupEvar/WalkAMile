@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,8 +37,7 @@ public class OnRoute extends Activity implements LocationListener {
 		 
 			getCurrentLocation();
 
-			character = mMap.addMarker(new MarkerOptions()
-		        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())));
+			
 		        
 		 
 		updateMap();
@@ -51,7 +51,12 @@ public class OnRoute extends Activity implements LocationListener {
 		    .build();                   // Creates a CameraPosition from the builder
 		mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+		character = mMap.addMarker(new MarkerOptions()
+        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())));
+		
 		character.setPosition(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()) );
+		drawRoute();
+
 	
 	 }
 	public void getCurrentLocation() {
@@ -63,6 +68,14 @@ public class OnRoute extends Activity implements LocationListener {
 			}
 			locationManager.requestLocationUpdates(s, 0, 0, this);
 		}
+	}
+	
+	public void drawRoute() {
+		mMap.clear();
+		PolylineOptions rectOptions = new PolylineOptions();
+	    rectOptions.add(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
+	    rectOptions.add(new LatLng(31.7800, 35.2000));
+		mMap.addPolyline(rectOptions);
 	}
 	
 	public void onLocationChanged(Location location) {
@@ -80,33 +93,41 @@ public class OnRoute extends Activity implements LocationListener {
 		 return true;
 	 
 	 long timeDelta = loc.getTime() - currentLocation.getTime();
-     boolean isSignificantlyNewer = timeDelta > 10;
-     boolean isSignificantlyOlder = timeDelta < -10;
+     //boolean isSignificantlyNewer = timeDelta > 10;
+     //boolean isSignificantlyOlder = timeDelta < -10;
      boolean isNewer = timeDelta > 0;
 
-     if (isSignificantlyNewer) {
-         return true;
-     
-     } else if (isSignificantlyOlder) {
-         return false;
-     }
+     ///if (isSignificantlyNewer) {
+     //    return true;
+     //
+     //} else if (isSignificantlyOlder) {
+     //    return false;
+     //}
 
      int accuracyDelta = (int) (loc.getAccuracy() - currentLocation
              .getAccuracy());
-     boolean isLessAccurate = accuracyDelta > 0;
+     //boolean isLessAccurate = accuracyDelta > 0;
      boolean isMoreAccurate = accuracyDelta < 0;
-     boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+    // boolean isSignificantlyLessAccurate = accuracyDelta > 100;
 
+    // boolean isFromSameProvider = isFromSpaceProvider(loc, currentLocation);
+     
      if (isMoreAccurate) {
          return true;
-     } else if (isNewer && !isLessAccurate) {
-         return true;
-     } else if (isNewer && !isSignificantlyLessAccurate
-         ) {
+     } else if (isNewer) {
          return true;
      }
      return false;
 	}
+	
+	
+	
+	//public boolean isFromSpaceProvider(Location loc1, Location loc2) {
+	//	if (loc1.getProvider().equals(loc2.getProvider())) {
+	//		return true;
+	//	}
+	//	return false;
+	//}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
