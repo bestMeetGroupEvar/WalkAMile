@@ -1,8 +1,6 @@
 package com.meet.walkamile;
 
 import java.util.ArrayList;
-//TODO: add back in
-//import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.location.Location;
 
@@ -33,20 +31,17 @@ public class Route {
 			} else if (hasBeen[i - 1] == false) {
 				return false;
 			}
-
 		}
-
 		return false;
 	}
 
-	public void drawRoute() {
-		// TODO: add back in
-		// PolylineOptions rectOptions = new PolylineOptions();
+	public void drawRoute(GoogleMap map) {
+		PolylineOptions rectOptions = new PolylineOptions();
+		for (Location loc : locations) {
+			rectOptions.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
+		}
+		map.addPolyline(rectOptions);
 
-	}
-
-	public ArrayList<Location> getRoutes() {
-		return routes;
 	}
 
 	public boolean isRouteFinished() {
@@ -55,6 +50,10 @@ public class Route {
 
 	public void setRoutes(ArrayList<Location> routes) {
 		this.routes = routes;
+	}
+
+	public ArrayList<Location> getRoutes() {
+		return routes;
 	}
 
 }
