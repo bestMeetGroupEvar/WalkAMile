@@ -2,15 +2,6 @@ package com.meet.walkamile;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.view.Menu;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.maps.*;
 
 public class MainMenu extends Activity {
 

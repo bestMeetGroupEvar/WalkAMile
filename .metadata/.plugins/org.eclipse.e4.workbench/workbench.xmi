@@ -61,7 +61,7 @@
           <tags>persp.actionSet:org.eclipse.wst.server.ui.internal.webbrowser.actionSet</tags>
           <tags>persp.actionSet:org.eclipse.debug.ui.breakpointActionSet</tags>
           <tags>persp.actionSet:org.eclipse.wst.ws.explorer.explorer</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_KR2Ywd2UEeKl0aKqA90bWw" selectedElement="_KR2Ywt2UEeKl0aKqA90bWw" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_KR2Ywd2UEeKl0aKqA90bWw" selectedElement="_KR2_0d2UEeKl0aKqA90bWw" horizontal="true">
             <children xsi:type="basic:PartStack" xmi:id="_KR2Ywt2UEeKl0aKqA90bWw" elementId="topLeft" containerData="2500" selectedElement="_KR2Yw92UEeKl0aKqA90bWw">
               <tags>newtablook</tags>
               <children xsi:type="advanced:Placeholder" xmi:id="_KR2Yw92UEeKl0aKqA90bWw" elementId="org.eclipse.ui.navigator.ProjectExplorer" ref="_KPvf8N2UEeKl0aKqA90bWw"/>
@@ -227,7 +227,7 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_KPGmwN2UEeKl0aKqA90bWw" elementId="org.eclipse.ui.editorss" selectedElement="_KPGmwd2UEeKl0aKqA90bWw">
-      <children xsi:type="basic:PartStack" xmi:id="_KPGmwd2UEeKl0aKqA90bWw" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_8-I0AN5kEeKsTLeSHudBbQ">
+      <children xsi:type="basic:PartStack" xmi:id="_KPGmwd2UEeKl0aKqA90bWw" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_I7MOMN2cEeKiC9Ug8jFp_A">
         <tags>newtablook</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
