@@ -2,8 +2,6 @@ package com.meet.walkamile;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.maps.model.PolylineOptions;
-
 import android.location.Location;
 
 public class Route {
