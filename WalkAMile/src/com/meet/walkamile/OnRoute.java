@@ -78,18 +78,34 @@ public class OnRoute extends Activity implements LocationListener {
 	 }
 	 if(currentLocation==null)
 		 return true;
-	 long timedelta=loc.getTime()-currentLocation.getTime();
-	 boolean isNewer=timedelta> 10;
-	 int accdelta= (int) (loc.getAccuracy()-currentLocation.getAccuracy());
-	 boolean isMoreAcc=accdelta<0;
 	 
-	 if(isMoreAcc)
-		 return true;
-	 else if(isNewer)
-		 return true;
-	 
-	 return false;
-	 
+	 long timeDelta = loc.getTime() - currentLocation.getTime();
+     boolean isSignificantlyNewer = timeDelta > 10;
+     boolean isSignificantlyOlder = timeDelta < -10;
+     boolean isNewer = timeDelta > 0;
+
+     if (isSignificantlyNewer) {
+         return true;
+     
+     } else if (isSignificantlyOlder) {
+         return false;
+     }
+
+     int accuracyDelta = (int) (loc.getAccuracy() - currentLocation
+             .getAccuracy());
+     boolean isLessAccurate = accuracyDelta > 0;
+     boolean isMoreAccurate = accuracyDelta < 0;
+     boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+     if (isMoreAccurate) {
+         return true;
+     } else if (isNewer && !isLessAccurate) {
+         return true;
+     } else if (isNewer && !isSignificantlyLessAccurate
+         ) {
+         return true;
+     }
+     return false;
 	}
 
 	@Override
