@@ -9,6 +9,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,13 +19,17 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class OnRoute extends Activity implements LocationListener {
 
 	private GoogleMap mMap;
 	private Location currentLocation;
 	private Marker character;
-	
+	private RouteManager rm;
+	private int count;
 	
 	
 
@@ -32,8 +38,22 @@ public class OnRoute extends Activity implements LocationListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
 		 
-		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
+        ParseAnalytics.trackAppOpened(getIntent());
+        
+		 rm = new RouteManager();
 
+        
+        Button record = (Button) findViewById(R.id.button1);
+        OnClickListener buttonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				rm.switchRecord();
+			}
+        };
+        record.setOnClickListener(buttonListener);
+		
+		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
                 
         //mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
                 //.icon(BitmapDescriptorFactory.fromResource(R.drawable.));
@@ -60,24 +80,11 @@ public class OnRoute extends Activity implements LocationListener {
 		character.setPosition(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()) );
 		drawRoute();
 
-	
 		
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		count++;
+		if (count == 5) {
+			rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
+		}
 		
 	 }
 	 

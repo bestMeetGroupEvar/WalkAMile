@@ -6,24 +6,25 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import android.location.Location;
 
 public class Route {
 	
 	 
 		//fileds
-	 ArrayList<Location> locations = new ArrayList<Location>();
-	 boolean[] hasBeen;
+	 private ArrayList<Position> Positions = new ArrayList<Position>();
+	 private boolean[] hasBeen;
+	 private String name;
 	 
-	 public Route(ArrayList<Location> locs) {
-		 this.locations = locs;
-		 hasBeen = new boolean[locations.size()];
+	 public Route(ArrayList<Position> locs,String name) {
+		 this.Positions = locs;
+		 hasBeen = new boolean[Positions.size()];
+		 this.name = name;
 	 }
 	 
 	 	//check off method
-	 public boolean checkOff(Location userPlace)	{
-		 for (int i = 0 ; i < locations.size(); i++) {
-			 if (locations.get(i).equals(userPlace) && hasBeen[i-1] == true) {
+	 public boolean checkOff(Position userPlace)	{
+		 for (int i = 0 ; i < Positions.size(); i++) {
+			 if (Positions.get(i).equals(userPlace) && hasBeen[i-1] == true) {
 				 hasBeen[i] = true;
 				 return true;
 			 } else if (hasBeen[i-1] == false) {
@@ -35,18 +36,26 @@ public class Route {
 	 
 	public void drawRoute(GoogleMap map) {
 		PolylineOptions rectOptions = new PolylineOptions();
-		for (Location loc:locations) {
+		for (Position loc:Positions) {
 			rectOptions.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
 		}
 		map.addPolyline(rectOptions);
 	}
 
-	public ArrayList<Location> getlocations() {
-		return locations;
+	public ArrayList<Position> getPositions() {
+		return Positions;
 	}
 
-	public void setlocations(ArrayList<Location> routes) {
-		this.locations = routes;
+	public void setPositions(ArrayList<Position> routes) {
+		this.Positions = routes;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

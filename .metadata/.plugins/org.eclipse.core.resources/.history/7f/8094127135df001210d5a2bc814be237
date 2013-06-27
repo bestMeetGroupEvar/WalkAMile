@@ -1,0 +1,31 @@
+package com.meet.walkamile;
+
+import java.util.ArrayList;
+
+import com.parse.ParseObject;
+
+import android.location.Location;
+
+public class RouteManager {
+	
+	ArrayList<Route> loadedRoutes;
+	
+	public RouteManager() {
+		loadedRoutes = new ArrayList<Route>();
+	}
+	
+	public void saveRoute(Route route) {
+		for (Location loc:route.getlocations()) {
+		   ParseObject location = new ParseObject("Location");
+		   location.put("route", route.getName());
+		   location.put("lat", loc.getLatitude());
+		   location.put("lon", loc.getLongitude());
+		   location.saveInBackground();
+		}
+	}
+	
+	public ArrayList<Route> getRoutes(int amount) {
+		
+	}
+
+}
