@@ -65,7 +65,12 @@ public class OnRoute extends Activity implements LocationListener {
 		
 		
 		
-	
+		
+		mMap.addMarker(new MarkerOptions()
+        .position(new LatLng(0, 0))
+        .title("Hello world"));
+
+		
 		
 		
 		

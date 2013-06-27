@@ -26,6 +26,12 @@ public class OnRoute extends Activity implements LocationListener {
 	
 	
 	
+	
+	private GoogleMap mMap;
+	mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+	mMap.addMarker(new MarkerOptions()
+	        .position(new LatLng(0, 0))
+	      );
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,28 +67,7 @@ public class OnRoute extends Activity implements LocationListener {
 		drawRoute();
 
 	
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	 }
-	 
-	 
-	 
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		ArrayList<String> providers = (ArrayList<String>) locationManager.getAllProviders();

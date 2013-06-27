@@ -24,9 +24,6 @@ public class OnRoute extends Activity implements LocationListener {
 	private Location currentLocation;
 	private Marker character;
 	
-	
-	
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,28 +58,7 @@ public class OnRoute extends Activity implements LocationListener {
 		drawRoute();
 
 	
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	 }
-	 
-	 
-	 
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		ArrayList<String> providers = (ArrayList<String>) locationManager.getAllProviders();
