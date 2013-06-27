@@ -33,5 +33,7 @@
         <activity android:name=".PickARoute"/>
         <!--created by amita11 at 2013-06-27 14:40:02-->
         <activity android:name=".StatsPage"/>
+        <!--created by amita11 at 2013-06-27 14:45:14-->
+        <activity android:name=".StatsPage"/>
     </application>
 </manifest>
