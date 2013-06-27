@@ -28,12 +28,19 @@ public class OnRoute extends Activity implements LocationListener {
 	private GoogleMap mMap;
 	private Location currentLocation;
 	private Marker character;
+<<<<<<< HEAD
 	private RouteManager rm;
 	private int count;
+	
+	
+=======
+>>>>>>> f8edc543f3bebd2065b128fb8e5c3852517522ec
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
+<<<<<<< HEAD
 		 
         Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
         ParseAnalytics.trackAppOpened(getIntent());
@@ -51,11 +58,27 @@ public class OnRoute extends Activity implements LocationListener {
         record.setOnClickListener(buttonListener);
 		
 		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+                
+        //mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.));
+		 
+			getCurrentLocation();
+
+			
+		        
+		 
+=======
+
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+
 		// mMap = ((MapFragment)
 		// getFragmentManager().findFragmentById(R.id.map)).getMap();
 		// .icon(BitmapDescriptorFactory.fromResource(R.drawable.));
 
 		getCurrentLocation();
+
+>>>>>>> f8edc543f3bebd2065b128fb8e5c3852517522ec
 		updateMap();
 	}
 
@@ -80,14 +103,22 @@ public class OnRoute extends Activity implements LocationListener {
 		character.setPosition(new LatLng(currentLocation.getLatitude(),
 				currentLocation.getLongitude()));
 		drawRoute();
+
+<<<<<<< HEAD
 		
 		count++;
 		if (count == 5) {
 			rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
 		}
 		
+	 }
 	 
+	 
+	 
+=======
 	}
+
+>>>>>>> f8edc543f3bebd2065b128fb8e5c3852517522ec
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);

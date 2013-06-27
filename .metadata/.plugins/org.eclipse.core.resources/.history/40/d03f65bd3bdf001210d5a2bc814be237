@@ -28,12 +28,19 @@ public class OnRoute extends Activity implements LocationListener {
 	private GoogleMap mMap;
 	private Location currentLocation;
 	private Marker character;
+<<<<<<< HEAD
 	private RouteManager rm;
 	private int count;
+	
+	
+=======
+>>>>>>> f8edc543f3bebd2065b128fb8e5c3852517522ec
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
+<<<<<<< HEAD
 		 
         Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
         ParseAnalytics.trackAppOpened(getIntent());
@@ -86,7 +93,7 @@ public class OnRoute extends Activity implements LocationListener {
 			rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
 		}
 		
-	 
+	 }
 	}
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this

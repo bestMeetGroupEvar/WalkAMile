@@ -86,7 +86,7 @@ public class OnRoute extends Activity implements LocationListener {
 			rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
 		}
 		
-	 
+	 }
 	}
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this
