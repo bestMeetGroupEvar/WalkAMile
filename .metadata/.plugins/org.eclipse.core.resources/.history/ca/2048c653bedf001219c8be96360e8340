@@ -85,7 +85,7 @@ public class OnRoute extends Activity implements LocationListener {
 				currentLocation.getLongitude()));*/
 		if (rm.isRecord()) {
 			count++;
-			if (count == 5) {
+			if (count == 8) {
 				rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
 				count = 0;
 			}
@@ -99,7 +99,7 @@ public class OnRoute extends Activity implements LocationListener {
 	}
 	
 	public Position getPos() {
-		return new Position(currentLocation.getLatitude(),currentLocation.getLongitude());
+		return currentLocation;
 	}
 	
 	public void getCurrentLocation() {

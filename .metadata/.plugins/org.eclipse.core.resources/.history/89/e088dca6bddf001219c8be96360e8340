@@ -16,12 +16,10 @@ public class RouteManager {
 	private Route currentRoute;
 	private ArrayList<Position> recording;
 	private boolean record = false;
-	private OnRoute routeActivity;
 	
-	public RouteManager(OnRoute r) {
+	public RouteManager() {
 		loadedRoutes = new ArrayList<Route>();
 		recording = new ArrayList<Position>();
-		routeActivity = r;
 	}
 	
 	public void saveRoute(Route route) {
@@ -72,7 +70,7 @@ public class RouteManager {
 		return record;
 	}
 	
-	public void switchRecord() {
+	public void switchRecord(OnRoute onroute) {
 		if (record) {
 			loadedRoutes.add(new Route(recording, "test"));
 			currentRoute = loadedRoutes.get(loadedRoutes.size()-1);
@@ -81,16 +79,9 @@ public class RouteManager {
 		
 		record = !record;
 		if (record) {
-			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
+			AlertDialog alertDialog = new AlertDialog.Builder(onroute.getApplicationContext()).create();
 			alertDialog.setMessage("Recording!");
 			alertDialog.show();
-			recording.add(routeActivity.getPos());
-		} else {
-			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
-			alertDialog.setMessage("Stopped!");
-			alertDialog.show();
-			recording.add(routeActivity.getPos());
-			routeActivity.drawRoute();
 		}
 		
 	}

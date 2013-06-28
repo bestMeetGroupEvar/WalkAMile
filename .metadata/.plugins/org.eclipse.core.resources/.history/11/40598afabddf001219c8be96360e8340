@@ -72,7 +72,7 @@ public class RouteManager {
 		return record;
 	}
 	
-	public void switchRecord() {
+	public void switchRecord(OnRoute onroute) {
 		if (record) {
 			loadedRoutes.add(new Route(recording, "test"));
 			currentRoute = loadedRoutes.get(loadedRoutes.size()-1);
@@ -84,13 +84,10 @@ public class RouteManager {
 			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
 			alertDialog.setMessage("Recording!");
 			alertDialog.show();
-			recording.add(routeActivity.getPos());
 		} else {
-			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
+			AlertDialog alertDialog = new AlertDialog.Builder(onroute.getApplicationContext()).create();
 			alertDialog.setMessage("Stopped!");
 			alertDialog.show();
-			recording.add(routeActivity.getPos());
-			routeActivity.drawRoute();
 		}
 		
 	}

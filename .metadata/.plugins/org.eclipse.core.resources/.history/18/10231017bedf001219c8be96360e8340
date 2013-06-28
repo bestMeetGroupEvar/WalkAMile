@@ -84,13 +84,10 @@ public class RouteManager {
 			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
 			alertDialog.setMessage("Recording!");
 			alertDialog.show();
-			recording.add(routeActivity.getPos());
 		} else {
 			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
 			alertDialog.setMessage("Stopped!");
 			alertDialog.show();
-			recording.add(routeActivity.getPos());
-			routeActivity.drawRoute();
 		}
 		
 	}

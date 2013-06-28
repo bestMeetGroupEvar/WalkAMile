@@ -31,10 +31,10 @@
         map:mapType="normal"
         map:uiCompass="false"
         map:uiRotateGestures="false"
-        map:uiScrollGestures="true"
+        map:uiScrollGestures="false"
         map:uiTiltGestures="false"
         map:uiZoomControls="false"
-        map:uiZoomGestures="true" />
+        map:uiZoomGestures="false" />
 
     <Button
         android:id="@+id/button1"

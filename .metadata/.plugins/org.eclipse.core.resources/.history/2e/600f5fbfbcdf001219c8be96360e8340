@@ -39,7 +39,7 @@ public class OnRoute extends Activity implements LocationListener {
        // Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
         //ParseAnalytics.trackAppOpened(getIntent());
         
-		 rm = new RouteManager(this);
+		 rm = new RouteManager();
 
         
        Button record = (Button) findViewById(R.id.button1);
@@ -85,7 +85,7 @@ public class OnRoute extends Activity implements LocationListener {
 				currentLocation.getLongitude()));*/
 		if (rm.isRecord()) {
 			count++;
-			if (count == 5) {
+			if (count == 8) {
 				rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
 				count = 0;
 			}
@@ -97,11 +97,6 @@ public class OnRoute extends Activity implements LocationListener {
 		
 	 
 	}
-	
-	public Position getPos() {
-		return new Position(currentLocation.getLatitude(),currentLocation.getLongitude());
-	}
-	
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -119,6 +114,7 @@ public class OnRoute extends Activity implements LocationListener {
 	public void drawRoute() {
 		
 		if (rm.getCurrentRoute() != null) {
+			
 			rm.getCurrentRoute().drawRoute(mMap);
 		}
 	}
