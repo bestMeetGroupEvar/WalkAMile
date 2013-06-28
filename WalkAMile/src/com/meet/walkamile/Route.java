@@ -2,35 +2,38 @@ package com.meet.walkamile;
 
 import java.util.ArrayList;
 
-import android.location.Location;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Route {
 
 	// fields
-	ArrayList<Location> routes = new ArrayList<Location>();
+	ArrayList<Position> positions = new ArrayList<Position>();
 	boolean[] hasBeen;
+	private String name;
 	boolean routeFinished = false;
 
-	public Route(ArrayList<Location> locs) {
-		this.routes = locs;
-		hasBeen = new boolean[routes.size()];
+	public Route(ArrayList<Position> locs, String name) {
+		this.positions = locs;
+		this.name = name;
+		hasBeen = new boolean[positions.size()];
 	}
 
 	public Route() {
-		hasBeen = new boolean[routes.size()];
+		hasBeen = new boolean[positions.size()];
 	}
 
-	
 	// check off method
-	public boolean checkOff(Location userPlace) {
-		for (int i = 0; i < routes.size(); i++) {
-			if (i == routes.size() - 1) {
-				if (routes.get(routes.size()).equals(userPlace)
-						&& hasBeen[routes.size() - 1] == true) {
+	public boolean checkOff(Position userPlace) {
+		for (int i = 0; i < positions.size(); i++) {
+			if (i == positions.size() - 1) {
+				if (positions.get(positions.size()).equals(userPlace)
+						&& hasBeen[positions.size() - 1] == true) {
 					routeFinished = true;
 				}
 			}
-			if (routes.get(i).equals(userPlace) && hasBeen[i - 1] == true) {
+			if (positions.get(i).equals(userPlace) && hasBeen[i - 1] == true) {
 				hasBeen[i] = true;
 				return true;
 			} else if (hasBeen[i - 1] == false) {
@@ -48,17 +51,34 @@ public class Route {
 	 * 
 	 * }
 	 */
+
+	public void drawRoute(GoogleMap map) {
+		PolylineOptions rectOptions = new PolylineOptions();
+		for (Position loc : positions) {
+			rectOptions.add(loc.getLatAndLon());
+		}
+		map.addPolyline(rectOptions);
+
+	}
+
 	public boolean isRouteFinished() {
 		return routeFinished;
 	}
 
-	public void setRoutes(ArrayList<Location> routes) {
-		this.routes = routes;
+	public ArrayList<Position> getPositions() {
+		return positions;
 	}
 
-	public ArrayList<Location> getRoutes() {
-		return routes;
+	public void setPositions(ArrayList<Position> positions) {
+		this.positions = positions;
 	}
 
-	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

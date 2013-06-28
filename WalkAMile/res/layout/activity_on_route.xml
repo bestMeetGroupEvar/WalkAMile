@@ -19,21 +19,29 @@
         android:text="@string/hello_world" />
 
     <fragment
-	  android:id="@+id/map"
-	  android:name="com.google.android.gms.maps.MapFragment"
-	  android:layout_width="match_parent"
-	  android:layout_height="match_parent"
-	  map:cameraBearing="112.5"
-	  map:cameraTargetLat="-33.796923"
-	  map:cameraTargetLng="150.922433"
-	  map:cameraTilt="30"
-	  map:cameraZoom="13"
-	  map:mapType="normal"
-	  map:uiCompass="false"
-	  map:uiRotateGestures="false"
-	  map:uiScrollGestures="false"
-	  map:uiTiltGestures="false"
-	  map:uiZoomControls="false"
-	  map:uiZoomGestures="false" />
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:cameraBearing="112.5"
+        map:cameraTargetLat="-33.796923"
+        map:cameraTargetLng="150.922433"
+        map:cameraTilt="30"
+        map:cameraZoom="13"
+        map:mapType="normal"
+        map:uiCompass="false"
+        map:uiRotateGestures="false"
+        map:uiScrollGestures="false"
+        map:uiTiltGestures="false"
+        map:uiZoomControls="false"
+        map:uiZoomGestures="false" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/map"
+        android:layout_alignTop="@+id/map"
+        android:text="Record" />
 
 </RelativeLayout>

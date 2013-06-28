@@ -9,35 +9,60 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class OnRoute extends Activity implements LocationListener {
 
 	private GoogleMap mMap;
 	private Location currentLocation;
 	private Marker character;
-
+	private RouteManager rm;
+	private int count;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
+		 
+       // Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
+        //ParseAnalytics.trackAppOpened(getIntent());
+        
+		 rm = new RouteManager();
 
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
-
+        
+       Button record = (Button) findViewById(R.id.button1);
+        OnClickListener buttonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				rm.switchRecord();
+			}
+        };
+        record.setOnClickListener(buttonListener);
+        
+		
+		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		 
+		/*character = mMap
+					.addMarker(new MarkerOptions().position(new LatLng(
+							currentLocation.getLatitude(), currentLocation
+									.getLongitude())));*/
 		// mMap = ((MapFragment)
 		// getFragmentManager().findFragmentById(R.id.map)).getMap();
 		// .icon(BitmapDescriptorFactory.fromResource(R.drawable.));
 
 		getCurrentLocation();
-
 		updateMap();
 	}
 
@@ -54,17 +79,24 @@ public class OnRoute extends Activity implements LocationListener {
 		mMap.animateCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPosition));
 
-		character = mMap
-				.addMarker(new MarkerOptions().position(new LatLng(
-						currentLocation.getLatitude(), currentLocation
-								.getLongitude())));
+		//mMap.clear();
 
-		character.setPosition(new LatLng(currentLocation.getLatitude(),
-				currentLocation.getLongitude()));
+		/*character.setPosition(new LatLng(currentLocation.getLatitude(),
+				currentLocation.getLongitude()));*/
+		if (rm.isRecord()) {
+			count++;
+			if (count == 8) {
+				rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()));
+				count = 0;
+			}
+		}
+		
 		drawRoute();
+		
 
+		
+	 
 	}
-
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -80,12 +112,10 @@ public class OnRoute extends Activity implements LocationListener {
 	}
 
 	public void drawRoute() {
-		mMap.clear();
-		PolylineOptions rectOptions = new PolylineOptions();
-		rectOptions.add(new LatLng(currentLocation.getLatitude(),
-				currentLocation.getLongitude()));
-		rectOptions.add(new LatLng(31.7800, 35.2000));
-		mMap.addPolyline(rectOptions);
+		
+		if (rm.getCurrentRoute() != null) {
+			rm.getCurrentRoute().drawRoute(mMap);
+		}
 	}
 
 	public void onLocationChanged(Location location) {

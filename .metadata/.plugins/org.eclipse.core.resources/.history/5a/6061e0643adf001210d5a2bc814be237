@@ -1,0 +1,54 @@
+package com.meet.walkamile;
+
+import java.util.List;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
+import android.app.Activity;
+import android.app.AlertDialog;
+
+public class MainMenu extends Activity {
+
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
+        Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
+        ParseAnalytics.trackAppOpened(getIntent());
+        
+      //  ParseObject testObject = new ParseObject("Location");
+      //  testObject.put("route", "tsdgte");
+      //  testObject.put("lat", 31.5234353);
+     //  testObject.put("lon", 33.43666);
+     //   testObject.saveInBackground();
+        
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
+        query.whereEqualTo("route", "tsdgte");
+        query.findInBackground(new FindCallback<ParseObject>() {
+			@Override
+            public void done(List<ParseObject> locations, ParseException e) {
+               AlertDialog al = new AlertDialog.Builder(MainMenu.this).create();
+               al.setMessage("Lat "+locations.get(0).get("lat") +", Lon "+locations.get(0).get("lon"));
+               al.show();
+            }
+
+        });
+    }
+
+    //@Override
+   // public boolean onCreateOptionsMenu(Menu menu) {
+    //    // Inflate the menu; this adds items to the action bar if it is present.
+   //     getMenuInflater().inflate(R.menu.main_menu, menu);
+    //    return true;
+   // }
+    
+}
