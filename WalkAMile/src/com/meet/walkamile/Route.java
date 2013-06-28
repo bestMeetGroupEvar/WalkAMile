@@ -16,6 +16,11 @@ public class Route {
 		hasBeen = new boolean[routes.size()];
 	}
 
+	public Route() {
+		hasBeen = new boolean[routes.size()];
+	}
+
+	
 	// check off method
 	public boolean checkOff(Location userPlace) {
 		for (int i = 0; i < routes.size(); i++) {
@@ -35,15 +40,14 @@ public class Route {
 		return false;
 	}
 
-	public void drawRoute(GoogleMap map) {
-		PolylineOptions rectOptions = new PolylineOptions();
-		for (Location loc : locations) {
-			rectOptions.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
-		}
-		map.addPolyline(rectOptions);
-
-	}
-
+	/**
+	 * public void drawRoute(GoogleMap map) { PolylineOptions rectOptions = new
+	 * PolylineOptions(); for (Location loc : locations) { rectOptions.add(new
+	 * LatLng(loc.getLatitude(), loc.getLongitude())); }
+	 * map.addPolyline(rectOptions);
+	 * 
+	 * }
+	 */
 	public boolean isRouteFinished() {
 		return routeFinished;
 	}
@@ -56,4 +60,5 @@ public class Route {
 		return routes;
 	}
 
+	
 }
