@@ -72,9 +72,8 @@ public class RouteManager {
 		if (record) {
 			loadedRoutes.add(new Route(recording, "test"));
 			currentRoute = loadedRoutes.get(loadedRoutes.size()-1);
-			recording = new ArrayList<Position>();
+			recording.clear();
 		}
-		
 		record = !record;
 		
 	}

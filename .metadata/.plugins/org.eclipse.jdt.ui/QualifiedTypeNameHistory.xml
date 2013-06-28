@@ -28,10 +28,23 @@
 <fullyQualifiedTypeName name="com.meet.walkamile.R.id"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.CameraUpdateFactory"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="android.location.LocationManager"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
-<fullyQualifiedTypeName name="android.location.Location"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.Marker"/>
+<fullyQualifiedTypeName name="com.parse.ParseObject"/>
+<fullyQualifiedTypeName name="com.parse.ParseQuery"/>
+<fullyQualifiedTypeName name="com.parse.GetCallback"/>
+<fullyQualifiedTypeName name="com.parse.FindCallback"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="android.location.Location"/>
+<fullyQualifiedTypeName name="android.location.LocationManager"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.LatLng"/>
+<fullyQualifiedTypeName name="com.meet.walkamile.Position"/>
+<fullyQualifiedTypeName name="com.meet.walkamile.OnRoute"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface.OnClickListener"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.meet.walkamile.Route"/>
+<fullyQualifiedTypeName name="com.meet.walkamile.RouteManager"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
 </qualifiedTypeNameHistroy>
