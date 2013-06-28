@@ -6,7 +6,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-
 public class Route {
 
 	// fields
@@ -15,9 +14,13 @@ public class Route {
 	private String name;
 	boolean routeFinished = false;
 
-	public Route(ArrayList<Position> locs,String name) {
+	public Route(ArrayList<Position> locs, String name) {
 		this.positions = locs;
 		this.name = name;
+		hasBeen = new boolean[positions.size()];
+	}
+
+	public Route() {
 		hasBeen = new boolean[positions.size()];
 	}
 
@@ -40,9 +43,18 @@ public class Route {
 		return false;
 	}
 
+	/**
+	 * public void drawRoute(GoogleMap map) { PolylineOptions rectOptions = new
+	 * PolylineOptions(); for (Location loc : locations) { rectOptions.add(new
+	 * LatLng(loc.getLatitude(), loc.getLongitude())); }
+	 * map.addPolyline(rectOptions);
+	 * 
+	 * }
+	 */
+
 	public void drawRoute(GoogleMap map) {
 		PolylineOptions rectOptions = new PolylineOptions();
-		for (Position loc:positions) {
+		for (Position loc : positions) {
 			rectOptions.add(loc.getLatAndLon());
 		}
 		map.addPolyline(rectOptions);
