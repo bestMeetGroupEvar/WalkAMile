@@ -31,16 +31,15 @@ public class OnRoute extends Activity implements LocationListener {
 	private Marker character;
 	private RouteManager rm;
 	private int count;
+	
+	public OnRoute(RouteManager rm) {
+		this.rm = rm;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
-		 
-       // Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
-        //ParseAnalytics.trackAppOpened(getIntent());
-        
-		 rm = new RouteManager(this);
-
         
        Button record = (Button) findViewById(R.id.button1);
         OnClickListener buttonListener = new OnClickListener() {
@@ -196,6 +195,10 @@ public class OnRoute extends Activity implements LocationListener {
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setRm(RouteManager rm) {
+		this.rm = rm;
 	}
 
 }

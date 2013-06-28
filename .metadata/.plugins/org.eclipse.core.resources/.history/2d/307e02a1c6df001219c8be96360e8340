@@ -1,0 +1,115 @@
+package com.meet.walkamile;
+
+import java.util.List;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+
+public class MainMenu extends Activity {
+
+	public static int STATE_RECORD = 0;
+	public static int STATE_RUN = 1;
+	public static int STATE = -1;
+	private RouteManager rm;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
+        Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
+        ParseAnalytics.trackAppOpened(getIntent());
+        
+        rm = new RouteManager(new OnRoute(rm));
+        rm.getRouteActivity().setRm(rm);
+        
+        //CHOOSE ROUTE
+        Button choose = (Button) findViewById(R.id.button1);
+        OnClickListener buttonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				rm.loadRoutes(10);
+				AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
+				alertDialog.setMessage("Recording!");
+				alertDialog.show();
+				chooseRoute();
+			}
+        };
+        choose.setOnClickListener(buttonListener);
+        
+        //RECORD
+        Button record = (Button) findViewById(R.id.button1);
+        OnClickListener buttonListener2 = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//rm.switchRecord();
+			}
+        };
+        record.setOnClickListener(buttonListener2);
+    }
+    
+    public void chooseRoute() {
+    	AlertDialog.Builder builder;
+    	AlertDialog alertDialog;
+
+    	final Context mContext = getApplicationContext();
+
+    	String array_spinner[];
+    	array_spinner=new String[10];
+    	for (int i = 0 ; i < rm.getLoadedRoutes().size(); i++) {
+    		array_spinner[i] = rm.getLoadedRoutes().get(i).getName();
+    	}
+
+    	final Spinner s = (Spinner) findViewById(R.id.Spinner01);
+
+    	ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, array_spinner);
+
+    	s.setAdapter(adapter);
+
+    	builder = new AlertDialog.Builder(mContext);
+    	alertDialog = builder.create();
+    	alertDialog.show();
+    	
+    	alertDialog.setButton("Select", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				String value = (String) s.getSelectedItem();
+				for (int i = 0; i < rm.getLoadedRoutes().size(); i++) {
+					if (rm.getLoadedRoutes().get(i).getName().equals(value)) {
+						rm.setCurrentRoute(rm.getLoadedRoutes().get(i));
+						Intent a = new Intent(mContext,OnRoute.class);
+						a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(a);
+						break;
+					}
+				}
+			}
+		});
+    	
+    }
+
+    //@Override
+   // public boolean onCreateOptionsMenu(Menu menu) {
+    //    // Inflate the menu; this adds items to the action bar if it is present.
+   //     getMenuInflater().inflate(R.menu.main_menu, menu);
+    //    return true;
+   // }
+    
+}

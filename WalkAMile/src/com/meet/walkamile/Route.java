@@ -17,11 +17,9 @@ public class Route {
 	public Route(ArrayList<Position> locs, String name) {
 		this.positions = locs;
 		this.name = name;
-		hasBeen = new boolean[positions.size()];
 	}
 
 	public Route() {
-		hasBeen = new boolean[positions.size()];
 	}
 
 	// check off method
