@@ -3,7 +3,6 @@ package com.meet.walkamile;
 import java.util.ArrayList;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Route {

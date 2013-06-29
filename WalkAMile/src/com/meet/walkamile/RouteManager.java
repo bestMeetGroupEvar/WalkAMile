@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -68,8 +70,18 @@ public class RouteManager {
 
 	}
 	
-	public void record(Position pos) {
+	public void record(Position pos,GoogleMap map) {
+		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 35 || recording.get(recording.size()-1).metersDistanceTo(pos) < 10)
+			return;
+		
 		recording.add(pos);
+		if (recording.size() >= 2) {
+			PolylineOptions rectOptions = new PolylineOptions();
+			for (int i = 0; i < recording.size(); i++) {
+				rectOptions.add(recording.get(i).getLatAndLon());
+			}
+			map.addPolyline(rectOptions);
+		}
 	}
 
 	public boolean isRecord() {
