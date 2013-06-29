@@ -71,7 +71,7 @@ public class RouteManager {
 	}
 	
 	public void record(Position pos,GoogleMap map) {
-		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 35 || recording.get(recording.size()-1).metersDistanceTo(pos) < 10)
+		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 35 || recording.get(recording.size()-1).metersDistanceTo(pos) <= 3)
 			return;
 		
 		recording.add(pos);
@@ -88,7 +88,7 @@ public class RouteManager {
 		return record;
 	}
 	
-	public void switchRecord() {
+	public void switchRecord(GoogleMap map) {
 		if (record) {
 			loadedRoutes.add(new Route(recording, "test"));
 			currentRoute = loadedRoutes.get(loadedRoutes.size()-1);
@@ -97,6 +97,8 @@ public class RouteManager {
 		
 		record = !record;
 		if (record) {
+			currentRoute = null;
+			map.clear();
 			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
 			alertDialog.setMessage("Recording!");
 			alertDialog.show();

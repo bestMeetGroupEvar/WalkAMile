@@ -46,7 +46,7 @@ public class OnRoute extends Activity implements LocationListener {
         OnClickListener buttonListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				rm.switchRecord();
+				rm.switchRecord(mMap);
 			}
         };
         record.setOnClickListener(buttonListener);
@@ -71,9 +71,7 @@ public class OnRoute extends Activity implements LocationListener {
 					.build(); // Creates a CameraPosition from the builder
 			mMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
-	
-			//mMap.clear();
-	
+		
 			/*character.setPosition(new LatLng(currentLocation.getLatitude(),
 					currentLocation.getLongitude()));*/
 			if (rm.isRecord()) {
