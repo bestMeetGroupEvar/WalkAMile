@@ -48,7 +48,7 @@ public class RouteManager {
 	
 	public void loadRoutes(int amount) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
-		//query.setLimit(amount);
+		query.setLimit(amount);
 		ArrayList<ParseObject> list = null;
 		try {
 			list = (ArrayList<ParseObject>) query.find();
@@ -77,7 +77,13 @@ public class RouteManager {
 				
 				for (ParseObject po:thelist) {
 					locs.add(new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
+					AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
+					alertDialog.setMessage(po.getObjectId());
+					alertDialog.show();
 				}
+				Position pos = locs.get(locs.size()-1);
+				locs.set(locs.size()-1, locs.get(locs.size()-2));
+				locs.set(locs.size()-2, pos);
 				r.setPositions((ArrayList<Position>) locs.clone());
 			}
 		}
@@ -187,6 +193,10 @@ public class RouteManager {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public Route getRecording() {
+		return recording;
 	}
 
 }
