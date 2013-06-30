@@ -18,7 +18,7 @@ public class RouteManager {
 	
 	private ArrayList<Route> loadedRoutes;
 	private Route currentRoute;
-	private ArrayList<Position> recording;
+	private Route recording;
 	private boolean record = false;
 	private OnRoute routeActivity;
 	private double speed = 0.0;
@@ -27,7 +27,7 @@ public class RouteManager {
 	
 	public RouteManager(OnRoute r) {
 		loadedRoutes = new ArrayList<Route>();
-		recording = new ArrayList<Position>();
+		recording = new Route();
 		routeActivity = r;
 		
 	}
@@ -85,21 +85,21 @@ public class RouteManager {
 	}
 	
 	public void record(Position pos,GoogleMap map) {
-		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 30 || recording.get(recording.size()-1).metersDistanceTo(pos) <= 3)
+		if (recording.getPositions().get(recording.getPositions().size()-1).metersDistanceTo(pos) > 30 || recording.getPositions().get(recording.getPositions().size()-1).metersDistanceTo(pos) <= 3)
 			return;
 		
-		speed = recording.get(recording.size()-1).metersDistanceTo(pos);
-		speed /= ((pos.getTime()-recording.get(recording.size()-1).getTime())/1000);
+		speed = recording.getPositions().get(recording.getPositions().size()-1).metersDistanceTo(pos);
+		speed /= ((pos.getTime()-recording.getPositions().get(recording.getPositions().size()-1).getTime())/1000);
 		
 		TextView textView = (TextView) routeActivity.findViewById(R.id.speed);
 		textView.setText(df.format(speed)+" M/S");
 		
-		recording.add(pos);
+		recording.getPositions().add(pos);
         
-		if (recording.size() >= 2) {
+		if (recording.getPositions().size() >= 2) {
 			PolylineOptions rectOptions = new PolylineOptions();
-			for (int i = 0; i < recording.size(); i++) {
-				rectOptions.add(recording.get(i).getLatAndLon());
+			for (int i = 0; i < recording.getPositions().size(); i++) {
+				rectOptions.add(recording.getPositions().get(i).getLatAndLon());
 			}
 			map.addPolyline(rectOptions);
 		}
@@ -111,9 +111,9 @@ public class RouteManager {
 	
 	public void switchRecord(GoogleMap map) {
 		if (record) {
-			loadedRoutes.add(new Route(recording, "test"));
+			loadedRoutes.add(recording);
 			currentRoute = loadedRoutes.get(loadedRoutes.size()-1);
-			recording = new ArrayList<Position>();
+			recording = new Route();
 		}
 		
 		record = !record;
@@ -123,9 +123,9 @@ public class RouteManager {
 			AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
 			alertDialog.setMessage("Recording!");
 			alertDialog.show();
-			recording.add(routeActivity.getPos());
+			recording.getPositions().add(routeActivity.getPos());
 		} else {
-			recording.add(routeActivity.getPos());
+			recording.getPositions().add(routeActivity.getPos());
 			routeActivity.drawRoute();
 			reciveName();
 		}
@@ -152,7 +152,7 @@ public class RouteManager {
 
 		alert.setNegativeButton("Delete Recording", new DialogInterface.OnClickListener() {
 		  public void onClick(DialogInterface dialog, int whichButton) {
-			  recording = new ArrayList<Position>();
+			  recording = new Route();
 			  loadedRoutes.remove(loadedRoutes.size()-1);
 			  currentRoute = null;
 		  }
