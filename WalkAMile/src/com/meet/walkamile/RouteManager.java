@@ -1,13 +1,12 @@
 package com.meet.walkamile;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.parse.FindCallback;
@@ -23,11 +22,13 @@ public class RouteManager {
 	private boolean record = false;
 	private OnRoute routeActivity;
 	private double speed = 0.0;
+	private DecimalFormat df=new DecimalFormat("0.0");
 	
 	public RouteManager(OnRoute r) {
 		loadedRoutes = new ArrayList<Route>();
 		recording = new ArrayList<Position>();
 		routeActivity = r;
+		
 	}
 	
 	public void saveRoute(Route route) {
@@ -76,12 +77,13 @@ public class RouteManager {
 		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 35 || recording.get(recording.size()-1).metersDistanceTo(pos) <= 3)
 			return;
 		
-		recording.add(pos);
-		speed = recording.get(recording.size()-2).metersDistanceTo(recording.get(recording.size()-1));
-		speed /= (recording.get(recording.size()-2).getTime()-recording.get(recording.size()-1).getTime())/1000;
+		speed = recording.get(recording.size()-1).metersDistanceTo(pos);
+		speed /= ((pos.getTime()-recording.get(recording.size()-1).getTime())/1000);
 		
-        TextView speed = (TextView) routeActivity.findViewById(R.id.speed);
-		speed.setText(String.valueOf(speed)+" KM/S");
+		TextView textView = (TextView) routeActivity.findViewById(R.id.speed);
+		textView.setText(df.format(speed)+" M/S");
+		
+		recording.add(pos);
         
 		if (recording.size() >= 2) {
 			PolylineOptions rectOptions = new PolylineOptions();

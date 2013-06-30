@@ -12,7 +12,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
@@ -42,6 +41,9 @@ public class OnRoute extends Activity implements LocationListener {
         Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
         ParseAnalytics.trackAppOpened(getIntent());
 		
+        rm.loadRoutes(10);
+        //rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
+        
         Button record = (Button) findViewById(R.id.button1);
         OnClickListener buttonListener = new OnClickListener() {
 			@Override
