@@ -24,6 +24,7 @@ public class RouteManager {
 	private double speed = 0.0;
 	private DecimalFormat df=new DecimalFormat("0.0");
 	
+	
 	public RouteManager(OnRoute r) {
 		loadedRoutes = new ArrayList<Route>();
 		recording = new Route();
@@ -44,37 +45,47 @@ public class RouteManager {
 		}
 	}
 	
+	
 	public void loadRoutes(int amount) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
-		//query.setLimit(amount);
-		query.findInBackground(new FindCallback<ParseObject>() {
-			@Override
-		    public void done(List<ParseObject> routes, ParseException e) {
-				for (int i = 0; i < routes.size(); i++) {
-					loadedRoutes.add(new Route(null,String.valueOf(routes.get(i).get("name"))));
-				}
-		    }
-		});
+		query.setLimit(amount);
+		ArrayList<ParseObject> list = null;
+		try {
+			list = (ArrayList<ParseObject>) query.find();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		for (ParseObject po:list) {
+			loadedRoutes.add(new Route(null,String.valueOf(po.get("name"))));
+		}
 		
 		
+		ParseQuery<ParseObject> query2= ParseQuery.getQuery("Position");
+		ArrayList<ParseObject> thelist = null;
 		final ArrayList<Position> locs = new ArrayList<Position>();
+		
 		for (int i = 0 ; i < loadedRoutes.size(); i++) {
 			Route r = loadedRoutes.get(i);
-			AlertDialog alert = new AlertDialog.Builder(routeActivity).create();
-			alert.setMessage("WHAT ARE YOU DOING TO ME");
-			alert.show();
-			locs.clear();
-			query = ParseQuery.getQuery("Position");
-			query.whereEqualTo("route", r.getName());
-			query.findInBackground(new FindCallback<ParseObject>() {
-				@Override
-			    public void done(List<ParseObject> locas, ParseException e) {
-					for (int j = 0; j < locas.size(); j++) {
-						locs.add(new Position(Double.valueOf(String.valueOf(locas.get(j).get("lat"))), Double.valueOf(String.valueOf(locas.get(j).get("lon")))));
-					}
+			if (r != null) {
+				locs.clear();
+				query2.whereEqualTo("route", r.getName());
+				try {
+					thelist = (ArrayList<ParseObject>) query2.find();
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-			});
-			r.setPositions((ArrayList<Position>) locs.clone());
+				
+				for (ParseObject po:thelist) {
+					locs.add(new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
+					AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
+					alertDialog.setMessage(po.getObjectId());
+					alertDialog.show();
+				}
+				Position pos = locs.get(locs.size()-1);
+				locs.set(locs.size()-1, locs.get(locs.size()-2));
+				locs.set(locs.size()-2, pos);
+				r.setPositions((ArrayList<Position>) locs.clone());
+			}
 		}
 
 	}
@@ -182,6 +193,10 @@ public class RouteManager {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public Route getRecording() {
+		return recording;
 	}
 
 }

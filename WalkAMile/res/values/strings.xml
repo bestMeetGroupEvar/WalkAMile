@@ -7,5 +7,6 @@
     <string name="title_activity_on_route">OnRoute</string>
     <string name="title_activity_pick_aroute">PickARoute</string>
     <string name="title_activity_stats_page">StatsPage</string>
+    <string name="title_activity_loading_screen">LoadingScreen</string>
 
 </resources>
