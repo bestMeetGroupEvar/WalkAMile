@@ -43,7 +43,7 @@ public class OnRoute extends Activity implements LocationListener {
         ParseAnalytics.trackAppOpened(getIntent());
 		
         rm.loadRoutes(10);
-        rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
+        //rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
         
         Button record = (Button) findViewById(R.id.button1);
         OnClickListener buttonListener = new OnClickListener() {
@@ -54,14 +54,6 @@ public class OnRoute extends Activity implements LocationListener {
         };
         record.setOnClickListener(buttonListener);
         
-        Button stop = (Button) findViewById(R.id.Button01);
-        OnClickListener stopListener = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				rm.getCurrentRoute().addStop(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()), mMap);
-			}
-        };
-        stop.setOnClickListener(stopListener);
 		
 		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 

@@ -3,15 +3,12 @@ package com.meet.walkamile;
 import java.util.ArrayList;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Route {
 
 	// fields
 	ArrayList<Position> positions = new ArrayList<Position>();
-	ArrayList<Position> stops= new ArrayList<Position>();
 	boolean[] hasBeen;
 	private String name;
 	boolean routeFinished = false;
@@ -25,20 +22,6 @@ public class Route {
 	public Route() {
 	}
 
-	
-	//adding stops
-	public void addStop(Position curPos,GoogleMap map) {
-		
-		this.stops.add(curPos);
-		map.addMarker(new MarkerOptions()
-		        .position(new LatLng(curPos.getLatitude(),curPos.getLongitude()))
-		        .title("ActivityNum"+ this.stops.size()));
-
-		
-	}
-	
-	
-	
 	// check off method
 	public boolean checkOff(Position userPlace) {
 		for (int i = 0; i < positions.size(); i++) {
@@ -75,7 +58,7 @@ public class Route {
 		map.addPolyline(rectOptions);
 
 	}
-	
+
 	public boolean isRouteFinished() {
 		return routeFinished;
 	}
