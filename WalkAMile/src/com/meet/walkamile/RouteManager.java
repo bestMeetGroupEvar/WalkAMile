@@ -60,6 +60,9 @@ public class RouteManager {
 		final ArrayList<Position> locs = new ArrayList<Position>();
 		for (int i = 0 ; i < loadedRoutes.size(); i++) {
 			Route r = loadedRoutes.get(i);
+			AlertDialog alert = new AlertDialog.Builder(routeActivity).create();
+			alert.setMessage("WHAT ARE YOU DOING TO ME");
+			alert.show();
 			locs.clear();
 			query = ParseQuery.getQuery("Position");
 			query.whereEqualTo("route", r.getName());
@@ -68,9 +71,6 @@ public class RouteManager {
 			    public void done(List<ParseObject> locas, ParseException e) {
 					for (int j = 0; j < locas.size(); j++) {
 						locs.add(new Position(Double.valueOf(String.valueOf(locas.get(j).get("lat"))), Double.valueOf(String.valueOf(locas.get(j).get("lon")))));
-						AlertDialog alert = new AlertDialog.Builder(routeActivity).create();
-						alert.setMessage("WHAT ARE YOU DOING TO ME");
-						alert.show();
 					}
 				}
 			});
