@@ -45,7 +45,7 @@
             android:label="@string/title_activity_on_route"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
-            <intent-filter>
+                                    <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,7 +57,9 @@
         <activity android:name="com.meet.walkamile.StatsPage" />
         <activity
             android:name="com.meet.walkamile.LoadingScreen"
-            android:label="@string/title_activity_loading_screen" >
+            android:label="@string/title_activity_loading_screen"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"  >
         </activity>
     </application>
 
