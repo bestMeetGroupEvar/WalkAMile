@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -79,6 +80,9 @@ public class RouteManager {
 		speed = recording.get(recording.size()-2).metersDistanceTo(recording.get(recording.size()-1));
 		speed /= (recording.get(recording.size()-2).getTime()-recording.get(recording.size()-1).getTime())/1000;
 		
+        TextView speed = (TextView) routeActivity.findViewById(R.id.speed);
+		speed.setText(String.valueOf(speed)+" KM/S");
+        
 		if (recording.size() >= 2) {
 			PolylineOptions rectOptions = new PolylineOptions();
 			for (int i = 0; i < recording.size(); i++) {
