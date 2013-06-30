@@ -32,7 +32,7 @@ public class Route {
 		this.stops.add(curPos);
 		map.addMarker(new MarkerOptions()
 		        .position(new LatLng(curPos.getLatitude(),curPos.getLongitude()))
-		        .title("ActivityNum"+ this.stops.size()));
+		        .title("Activity "+ this.stops.size()));
 
 		
 	}
