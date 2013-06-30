@@ -61,21 +61,25 @@ public class RouteManager {
 		
 		
 		ParseQuery<ParseObject> query2= ParseQuery.getQuery("Position");
-
+		ArrayList<ParseObject> thelist = null;
 		final ArrayList<Position> locs = new ArrayList<Position>();
+		
 		for (int i = 0 ; i < loadedRoutes.size(); i++) {
 			Route r = loadedRoutes.get(i);
-			locs.clear();
-			query2.whereEqualTo("route", r.getName());
-			query2.findInBackground(new FindCallback<ParseObject>() {
-				@Override
-			    public void done(List<ParseObject> locas, ParseException e) {
-					for (int j = 0; j < locas.size(); j++) {
-						locs.add(new Position(Double.valueOf(String.valueOf(locas.get(j).get("lat"))), Double.valueOf(String.valueOf(locas.get(j).get("lon")))));
-					}
+			if (r != null) {
+				locs.clear();
+				query2.whereEqualTo("route", r.getName());
+				try {
+					thelist = (ArrayList<ParseObject>) query2.find();
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-			});
-			r.setPositions((ArrayList<Position>) locs.clone());
+				
+				for (ParseObject po:thelist) {
+					locs.add(new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
+				}
+				r.setPositions((ArrayList<Position>) locs.clone());
+			}
 		}
 
 	}
