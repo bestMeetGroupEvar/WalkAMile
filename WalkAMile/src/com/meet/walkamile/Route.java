@@ -12,6 +12,7 @@ public class Route {
 	boolean[] hasBeen;
 	private String name;
 	boolean routeFinished = false;
+	private double timeInMinutes;
 
 	public Route(ArrayList<Position> locs, String name) {
 		this.positions = locs;
@@ -76,6 +77,14 @@ public class Route {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public double getTimeInMinutes() {
+		return timeInMinutes;
+	}
+
+	public void setTimeInMinutes(double timeInMinutes) {
+		this.timeInMinutes = timeInMinutes;
 	}
 
 }

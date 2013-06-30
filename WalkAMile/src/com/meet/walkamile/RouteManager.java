@@ -46,35 +46,41 @@ public class RouteManager {
 	
 	public void loadRoutes(int amount) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
-		query.setLimit(amount);
+		//query.setLimit(amount);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			@Override
 		    public void done(List<ParseObject> routes, ParseException e) {
-				for (int i = 0; i < routes.size(); i++)
+				for (int i = 0; i < routes.size(); i++) {
 					loadedRoutes.add(new Route(null,String.valueOf(routes.get(i).get("name"))));
+				}
 		    }
 		});
 		
 		
 		final ArrayList<Position> locs = new ArrayList<Position>();
-		for (Route r: loadedRoutes) {
+		for (int i = 0 ; i < loadedRoutes.size(); i++) {
+			Route r = loadedRoutes.get(i);
 			locs.clear();
 			query = ParseQuery.getQuery("Position");
 			query.whereEqualTo("route", r.getName());
 			query.findInBackground(new FindCallback<ParseObject>() {
 				@Override
 			    public void done(List<ParseObject> locas, ParseException e) {
-					for (int i = 0; i < locas.size(); i++)
-						locs.add(new Position(Double.valueOf(String.valueOf(locas.get(i).get("lat"))), Double.valueOf(String.valueOf(locas.get(i).get("lon")))));
-			    }
+					for (int j = 0; j < locas.size(); j++) {
+						locs.add(new Position(Double.valueOf(String.valueOf(locas.get(j).get("lat"))), Double.valueOf(String.valueOf(locas.get(j).get("lon")))));
+						AlertDialog alert = new AlertDialog.Builder(routeActivity).create();
+						alert.setMessage("WHAT ARE YOU DOING TO ME");
+						alert.show();
+					}
+				}
 			});
-			r.setPositions(locs);
+			r.setPositions((ArrayList<Position>) locs.clone());
 		}
 
 	}
 	
 	public void record(Position pos,GoogleMap map) {
-		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 35 || recording.get(recording.size()-1).metersDistanceTo(pos) <= 3)
+		if (recording.get(recording.size()-1).metersDistanceTo(pos) > 30 || recording.get(recording.size()-1).metersDistanceTo(pos) <= 3)
 			return;
 		
 		speed = recording.get(recording.size()-1).metersDistanceTo(pos);
