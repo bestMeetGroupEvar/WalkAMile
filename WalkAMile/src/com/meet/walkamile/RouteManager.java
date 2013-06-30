@@ -2,14 +2,12 @@ package com.meet.walkamile;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -36,11 +34,13 @@ public class RouteManager {
 		ParseObject rot = new ParseObject("Route");
 		rot.put("name", route.getName());
 		rot.saveInBackground();
-		for (Position loc:route.getPositions()) {
+		for (int i = 0; i < route.getPositions().size();i++) {
+		   Position loc = route.getPositions().get(i);
 		   ParseObject Position = new ParseObject("Position");
 		   Position.put("route", route.getName());
 		   Position.put("lat", loc.getLatitude());
 		   Position.put("lon", loc.getLongitude());
+		   Position.put("number", i);
 		   Position.saveInBackground();
 		}
 	}
@@ -48,7 +48,7 @@ public class RouteManager {
 	
 	public void loadRoutes(int amount) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
-		query.setLimit(amount);
+		//query.setLimit(amount);
 		ArrayList<ParseObject> list = null;
 		try {
 			list = (ArrayList<ParseObject>) query.find();
@@ -68,6 +68,9 @@ public class RouteManager {
 			Route r = loadedRoutes.get(i);
 			if (r != null) {
 				locs.clear();
+				for (int k = 0; k < 100; k++) {
+					locs.add(null);
+				}
 				query2.whereEqualTo("route", r.getName());
 				try {
 					thelist = (ArrayList<ParseObject>) query2.find();
@@ -76,14 +79,9 @@ public class RouteManager {
 				}
 				
 				for (ParseObject po:thelist) {
-					locs.add(new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
-					AlertDialog alertDialog = new AlertDialog.Builder(routeActivity).create();
-					alertDialog.setMessage(po.getObjectId());
-					alertDialog.show();
+					locs.add((Integer) po.get("number"),new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
 				}
-				Position pos = locs.get(locs.size()-1);
-				locs.set(locs.size()-1, locs.get(locs.size()-2));
-				locs.set(locs.size()-2, pos);
+				
 				r.setPositions((ArrayList<Position>) locs.clone());
 			}
 		}

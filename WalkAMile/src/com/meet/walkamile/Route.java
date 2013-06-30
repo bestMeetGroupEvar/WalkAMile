@@ -108,6 +108,7 @@ public class Route {
 	public void drawRoute(GoogleMap map) {
 		PolylineOptions rectOptions = new PolylineOptions();
 		for (Position loc : positions) {
+			if (loc != null)
 			rectOptions.add(loc.getLatAndLon());
 		}
 		map.addPolyline(rectOptions);
