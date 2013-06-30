@@ -21,6 +21,7 @@ public class RouteManager {
 	private ArrayList<Position> recording;
 	private boolean record = false;
 	private OnRoute routeActivity;
+	private double speed = 0.0;
 	
 	public RouteManager(OnRoute r) {
 		loadedRoutes = new ArrayList<Route>();
@@ -75,6 +76,9 @@ public class RouteManager {
 			return;
 		
 		recording.add(pos);
+		speed = recording.get(recording.size()-2).metersDistanceTo(recording.get(recording.size()-1));
+		speed /= (recording.get(recording.size()-2).getTime()-recording.get(recording.size()-1).getTime())/1000;
+		
 		if (recording.size() >= 2) {
 			PolylineOptions rectOptions = new PolylineOptions();
 			for (int i = 0; i < recording.size(); i++) {
@@ -158,6 +162,14 @@ public class RouteManager {
 
 	public ArrayList<Route> getLoadedRoutes() {
 		return loadedRoutes;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

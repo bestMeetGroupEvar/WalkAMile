@@ -5,16 +5,20 @@ import com.google.android.gms.maps.model.LatLng;
 public class Position {
 	
 	private LatLng latAndLon;
+	private long time;
 	
 	public Position() {
+		setTime(System.currentTimeMillis());
 	}
 	
 	public Position(double lat, double lon) {
 		latAndLon = new LatLng(lat, lon);
+		setTime(System.currentTimeMillis());
 	}
 	
 	public Position(LatLng latlan) {
 		latAndLon = latlan;
+		setTime(System.currentTimeMillis());
 	}
 
 	public LatLng getLatAndLon() {
@@ -57,6 +61,14 @@ public class Position {
 	
 	public double deg2rad(double deg) {
 		  return deg * (Math.PI/180);
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
 	}
 
 }

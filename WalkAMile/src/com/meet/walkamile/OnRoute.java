@@ -74,6 +74,7 @@ public class OnRoute extends Activity implements LocationListener {
 		
 			/*character.setPosition(new LatLng(currentLocation.getLatitude(),
 					currentLocation.getLongitude()));*/
+			
 			if (rm.isRecord()) {
 				count++;
 				if (count == 3) {
