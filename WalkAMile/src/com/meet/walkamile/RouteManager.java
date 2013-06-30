@@ -40,7 +40,6 @@ public class RouteManager {
 		   Position.put("route", route.getName());
 		   Position.put("lat", loc.getLatitude());
 		   Position.put("lon", loc.getLongitude());
-		   Position.put("number", i);
 		   Position.saveInBackground();
 		}
 	}
@@ -58,9 +57,9 @@ public class RouteManager {
 		for (ParseObject po:list) {
 			loadedRoutes.add(new Route(null,String.valueOf(po.get("name"))));
 		}
+		query.clearCachedResult();
 		
-		
-		ParseQuery<ParseObject> query2= ParseQuery.getQuery("Position");
+		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Position");
 		ArrayList<ParseObject> thelist = null;
 		final ArrayList<Position> locs = new ArrayList<Position>();
 		
@@ -68,9 +67,7 @@ public class RouteManager {
 			Route r = loadedRoutes.get(i);
 			if (r != null) {
 				locs.clear();
-				for (int k = 0; k < 100; k++) {
-					locs.add(null);
-				}
+				query2= ParseQuery.getQuery("Position");
 				query2.whereEqualTo("route", r.getName());
 				try {
 					thelist = (ArrayList<ParseObject>) query2.find();
@@ -79,12 +76,14 @@ public class RouteManager {
 				}
 				
 				for (ParseObject po:thelist) {
-					locs.add((Integer) po.get("number"),new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
+					locs.add(new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
 				}
 				
 				r.setPositions((ArrayList<Position>) locs.clone());
 			}
 		}
+		
+		query2.clearCachedResult();
 
 	}
 	

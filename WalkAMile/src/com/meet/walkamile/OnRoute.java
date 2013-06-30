@@ -8,6 +8,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
+import com.parse.PushService;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -36,6 +39,10 @@ public class OnRoute extends Activity implements LocationListener {
 		setContentView(R.layout.activity_on_route);
         
         Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
+        
+        PushService.setDefaultPushCallback(this, OnRoute.class);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+        
         ParseAnalytics.trackAppOpened(getIntent());
         
 		rm = new RouteManager(this);
@@ -61,6 +68,17 @@ public class OnRoute extends Activity implements LocationListener {
 			}
         };
         stop.setOnClickListener(stopListener);
+        
+        Button redraw = (Button) findViewById(R.id.Button02);
+        OnClickListener buttonListener3 = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mMap.clear();
+				drawRoute();
+			}
+        };
+        redraw.setOnClickListener(buttonListener3);
+        
 		
 		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
@@ -119,7 +137,6 @@ public class OnRoute extends Activity implements LocationListener {
 	}
 
 	public void drawRoute() {
-		
 		if (rm.getCurrentRoute() != null) {
 			rm.getCurrentRoute().drawRoute(mMap);
 		}
