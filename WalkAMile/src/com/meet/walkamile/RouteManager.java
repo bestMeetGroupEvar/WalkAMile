@@ -24,6 +24,7 @@ public class RouteManager {
 	private double speed = 0.0;
 	private DecimalFormat df=new DecimalFormat("0.0");
 	
+	
 	public RouteManager(OnRoute r) {
 		loadedRoutes = new ArrayList<Route>();
 		recording = new ArrayList<Position>();
@@ -44,29 +45,29 @@ public class RouteManager {
 		}
 	}
 	
+	
 	public void loadRoutes(int amount) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
 		//query.setLimit(amount);
-		query.findInBackground(new FindCallback<ParseObject>() {
-			@Override
-		    public void done(List<ParseObject> routes, ParseException e) {
-				for (int i = 0; i < routes.size(); i++) {
-					loadedRoutes.add(new Route(null,String.valueOf(routes.get(i).get("name"))));
-				}
-		    }
-		});
+		ArrayList<ParseObject> list = null;
+		try {
+			list = (ArrayList<ParseObject>) query.find();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		for (ParseObject po:list) {
+			loadedRoutes.add(new Route(null,String.valueOf(po.get("name"))));
+		}
 		
 		
+		ParseQuery<ParseObject> query2= ParseQuery.getQuery("Position");
+
 		final ArrayList<Position> locs = new ArrayList<Position>();
 		for (int i = 0 ; i < loadedRoutes.size(); i++) {
 			Route r = loadedRoutes.get(i);
-			AlertDialog alert = new AlertDialog.Builder(routeActivity).create();
-			alert.setMessage("WHAT ARE YOU DOING TO ME");
-			alert.show();
 			locs.clear();
-			query = ParseQuery.getQuery("Position");
-			query.whereEqualTo("route", r.getName());
-			query.findInBackground(new FindCallback<ParseObject>() {
+			query2.whereEqualTo("route", r.getName());
+			query2.findInBackground(new FindCallback<ParseObject>() {
 				@Override
 			    public void done(List<ParseObject> locas, ParseException e) {
 					for (int j = 0; j < locas.size(); j++) {
