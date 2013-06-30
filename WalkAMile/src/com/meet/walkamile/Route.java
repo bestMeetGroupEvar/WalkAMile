@@ -11,7 +11,7 @@ public class Route {
 
 	// fields
 	ArrayList<Position> positions = new ArrayList<Position>();
-	ArrayList<Position> stops= new ArrayList<Position>();
+	ArrayList<Position> stops = new ArrayList<Position>();
 	boolean[] hasBeen;
 	private String name;
 	boolean routeFinished = false;
@@ -25,20 +25,16 @@ public class Route {
 	public Route() {
 	}
 
-	
-	//adding stops
-	public void addStop(Position curPos,GoogleMap map) {
-		
-		this.stops.add(curPos);
-		map.addMarker(new MarkerOptions()
-		        .position(new LatLng(curPos.getLatitude(),curPos.getLongitude()))
-		        .title("Activity "+ this.stops.size()));
+	// adding stops
+	public void addStop(Position curPos, GoogleMap map) {
 
-		
+		this.stops.add(curPos);
+		map.addMarker(new MarkerOptions().position(
+				new LatLng(curPos.getLatitude(), curPos.getLongitude())).title(
+				"Activity " + this.stops.size()));
+
 	}
-	
-	
-	
+
 	// check off method
 	public boolean checkOff(Position userPlace) {
 		for (int i = 0; i < positions.size(); i++) {
@@ -58,6 +54,48 @@ public class Route {
 		return false;
 	}
 
+	// Route's distance
+
+	public double sumKM() {
+		double sum = 0;
+		for (int i = 1; i < positions.size(); i++) {
+			sum += positions.get(i).kilometersDistanceTo(positions.get(i - 1));
+		}
+		return sum;
+	}
+
+	// Route's average speed
+
+	public double averageSpeed() {
+		double speed = 0;
+		double sumSpeed = 0;
+		for (int i = 1; i < positions.size(); i++) {
+			speed = positions.get(i).metersDistanceTo(positions.get(i - 1));
+			speed /= ((positions.get(i).getTime() - positions.get(i - 1)
+					.getTime()) / 1000);
+			sumSpeed += speed;
+		}
+		return (sumSpeed / (positions.size() - 1));
+	}
+
+	public double sumTimeHour(){
+		double sumTime=0;
+		double time;
+		for (int i = 1; i < positions.size(); i++){
+		time = ((positions.get(i).getTime()-positions.get(i-1).getTime())/1000/60/60);
+		sumTime+=time;
+	}
+		return sumTime;
+	}
+
+	// Route's calories
+	// Calorie(Kcal) ＝ BMR X Mets/24 X hour
+
+	public int sumCalories(){
+		double speed=this.averageSpeed()*2.777777777778;
+		return (int)(1700*((speed*1.64)/24)*this.sumTimeHour());
+	}
+
 	/**
 	 * public void drawRoute(GoogleMap map) { PolylineOptions rectOptions = new
 	 * PolylineOptions(); for (Location loc : locations) { rectOptions.add(new
@@ -75,7 +113,7 @@ public class Route {
 		map.addPolyline(rectOptions);
 
 	}
-	
+
 	public boolean isRouteFinished() {
 		return routeFinished;
 	}
