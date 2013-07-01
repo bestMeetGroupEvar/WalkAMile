@@ -34,24 +34,32 @@
         android:layout_alignParentTop="true"
         android:src="@drawable/help" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="51dp"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:src="@drawable/cooltext1096442641" />
+    
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <Spinner
+        android:id="@+id/spinnerX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_below="@+id/imageButton3"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="106dp"
-        android:src="@drawable/cooltext1096441250" />
+        android:layout_above="@+id/editText2"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="41dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spinnerX"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/cooltext1097430541" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/spinnerX"
+        android:src="@drawable/cooltext1097436098" />
 
     <ImageButton
         android:id="@+id/imageButton5"
@@ -59,14 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="129dp"
-        android:src="@drawable/cooltext1096320017" />
-
-    <Spinner
-        android:id="@+id/spinnerX"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/imageView1" />
+        android:layout_marginBottom="97dp"
+        android:src="@drawable/cooltext1097442877" />
 
 </RelativeLayout>
