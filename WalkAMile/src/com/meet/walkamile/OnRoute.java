@@ -44,8 +44,8 @@ public class OnRoute extends Activity implements LocationListener {
 		rm = new RouteManager(this);
 		setRm(rm);
 		
-      //  rm.loadRoutes(1);
-       // rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
+       rm.loadRoutes(1);
+       rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
 		
         Button record = (Button) findViewById(R.id.button1);
         OnClickListener buttonListener = new OnClickListener() {
@@ -107,7 +107,7 @@ public class OnRoute extends Activity implements LocationListener {
 				}
 			}
 			
-			drawRoute();
+			//drawRoute(); may edit!
 			
 
 		}

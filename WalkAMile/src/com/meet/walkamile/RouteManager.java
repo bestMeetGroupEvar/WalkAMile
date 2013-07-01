@@ -38,10 +38,10 @@ public class RouteManager {
 		   Position loc = route.getPositions().get(i);
 		   ParseObject Position = new ParseObject("Position");
 		   Position.put("route", route.getName());
-		   Position.put("index", i);
+		   Position.put("index", i);//may edit
 		   Position.put("lat", loc.getLatitude());
 		   Position.put("lon", loc.getLongitude());
-		   Position.saveInBackground();
+		  Position.saveInBackground();
 		}
 	}
 	
@@ -61,6 +61,7 @@ public class RouteManager {
 		query.clearCachedResult();
 		
 		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Position");
+		query2.orderByAscending("index");
 		ArrayList<ParseObject> thelist = null;
 		final ArrayList<Position> locs = new ArrayList<Position>();
 		
@@ -68,10 +69,10 @@ public class RouteManager {
 			Route r = loadedRoutes.get(i);
 			if (r != null) {
 				locs.clear();
-				query2= ParseQuery.getQuery("Position");
 				query2.whereEqualTo("route", r.getName());
+				
 				try {
-					thelist = (ArrayList<ParseObject>) query2.find();
+					thelist = (ArrayList<ParseObject>) query2.orderByAscending("index").find();
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
