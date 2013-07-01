@@ -28,11 +28,8 @@ public class OnRoute extends Activity implements LocationListener {
 	private Location currentLocation;
 	private RouteManager rm;
 	private int count;
-
 	public OnRoute() {
 	}
-	
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
@@ -47,8 +44,8 @@ public class OnRoute extends Activity implements LocationListener {
 		rm = new RouteManager(this);
 		setRm(rm);
 		
-        rm.loadRoutes(1);
-        rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
+      //  rm.loadRoutes(1);
+       // rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
 		
         Button record = (Button) findViewById(R.id.button1);
         OnClickListener buttonListener = new OnClickListener() {

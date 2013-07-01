@@ -77,7 +77,8 @@ public class Route {
 		}
 		return (sumSpeed / (positions.size() - 1));
 	}
-
+//duration
+	
 	public double sumTimeHour(){
 		double sumTime=0;
 		double time;

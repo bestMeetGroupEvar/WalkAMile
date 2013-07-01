@@ -33,7 +33,8 @@ public class MainMenu extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+       setContentView(R.layout.activity_main_menu);
+        //setContentView(R.layout.activity_test);
         //Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
         //ParseAnalytics.trackAppOpened(getIntent());
         

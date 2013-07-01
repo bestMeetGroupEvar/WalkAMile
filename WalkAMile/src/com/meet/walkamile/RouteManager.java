@@ -38,6 +38,7 @@ public class RouteManager {
 		   Position loc = route.getPositions().get(i);
 		   ParseObject Position = new ParseObject("Position");
 		   Position.put("route", route.getName());
+		   Position.put("index", i);
 		   Position.put("lat", loc.getLatitude());
 		   Position.put("lon", loc.getLongitude());
 		   Position.saveInBackground();
@@ -79,7 +80,7 @@ public class RouteManager {
 					locs.add(new Position(Double.valueOf(String.valueOf(po.get("lat"))), Double.valueOf(String.valueOf(po.get("lon")))));			
 				}
 				
-				r.setPositions((ArrayList<Position>) locs.clone());
+				r.setPositions(locs);
 			}
 		}
 		
