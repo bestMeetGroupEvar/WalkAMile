@@ -28,65 +28,73 @@ public class OnRoute extends Activity implements LocationListener {
 	private Location currentLocation;
 	private RouteManager rm;
 	private int count;
+
 	public OnRoute() {
 	}
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_on_route);
-        
-        Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO", "igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH"); 
-        
-        PushService.setDefaultPushCallback(this, OnRoute.class);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-        
-        ParseAnalytics.trackAppOpened(getIntent());
-        
+
+		Parse.initialize(this, "8vUmX8zsitdoTiC7Ih1q0ewG1C0VKvhVsrVYM0TO",
+				"igAhOYEpx5Tkp7i7LCI74oIExOdBMmc3Ey8nPzFH");
+
+		PushService.setDefaultPushCallback(this, OnRoute.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+
+		ParseAnalytics.trackAppOpened(getIntent());
+
 		rm = new RouteManager(this);
 		setRm(rm);
+
+			rm.loadRoutes(1);
+			rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
 		
-       rm.loadRoutes(1);
-       rm.setCurrentRoute(rm.getLoadedRoutes().get(0));
 		
-        Button record = (Button) findViewById(R.id.button1);
-        OnClickListener buttonListener = new OnClickListener() {
+		
+		Button record = (Button) findViewById(R.id.button1);
+		OnClickListener buttonListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				rm.switchRecord(mMap);
 			}
-        };
-        record.setOnClickListener(buttonListener);
-        
-        Button stop = (Button) findViewById(R.id.Button01);
-        OnClickListener stopListener = new OnClickListener() {
+		};
+		record.setOnClickListener(buttonListener);
+
+		Button stop = (Button) findViewById(R.id.Button01);
+		OnClickListener stopListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				rm.getRecording().addStop(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()), mMap);
+				rm.getRecording().addStop(
+						new Position(currentLocation.getLatitude(),
+								currentLocation.getLongitude()), mMap);
 			}
-        };
-        stop.setOnClickListener(stopListener);
-        
-        Button redraw = (Button) findViewById(R.id.Button02);
-        OnClickListener buttonListener3 = new OnClickListener() {
+		};
+		stop.setOnClickListener(stopListener);
+
+		Button redraw = (Button) findViewById(R.id.Button02);
+		OnClickListener buttonListener3 = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mMap.clear();
 				drawRoute();
 			}
-        };
-        redraw.setOnClickListener(buttonListener3);
-        
-		
-		 mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		};
+		redraw.setOnClickListener(buttonListener3);
+
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
 
 		getCurrentLocation();
 		updateMap();
 	}
 
 	public void updateMap() {
-		if (currentLocation != null) { 
+		if (currentLocation != null) {
 			CameraPosition cameraPosition = new CameraPosition.Builder()
 					.target(new LatLng(currentLocation.getLatitude(),
-							currentLocation.getLongitude())) // Sets the center of
+							currentLocation.getLongitude())) // Sets the center
+																// of
 																// the map to
 																// Mountain View
 					.zoom(25) // Sets the zoom
@@ -95,29 +103,32 @@ public class OnRoute extends Activity implements LocationListener {
 					.build(); // Creates a CameraPosition from the builder
 			mMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
-		
-			/*character.setPosition(new LatLng(currentLocation.getLatitude(),
-					currentLocation.getLongitude()));*/
-			
+
+			/*
+			 * character.setPosition(new LatLng(currentLocation.getLatitude(),
+			 * currentLocation.getLongitude()));
+			 */
+
 			if (rm.isRecord()) {
 				count++;
 				if (count == 3) {
-					rm.record(new Position(currentLocation.getLatitude(),currentLocation.getLongitude()),mMap);
+					rm.record(new Position(currentLocation.getLatitude(),
+							currentLocation.getLongitude()), mMap);
 					count = 0;
 				}
 			}
-			
-			//drawRoute(); may edit!
-			
+
+			// drawRoute(); may edit!
 
 		}
-	 
+
 	}
-	
+
 	public Position getPos() {
-		return new Position(currentLocation.getLatitude(),currentLocation.getLongitude());
+		return new Position(currentLocation.getLatitude(),
+				currentLocation.getLongitude());
 	}
-	
+
 	public void getCurrentLocation() {
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -170,8 +181,8 @@ public class OnRoute extends Activity implements LocationListener {
 		boolean isMoreAccurate = accuracyDelta < 0;
 		// boolean isSignificantlyLessAccurate = accuracyDelta > 100;
 
-		//boolean isFromSameProvider = isFromSpaceProvider(loc,
-		//currentLocation);
+		// boolean isFromSameProvider = isFromSpaceProvider(loc,
+		// currentLocation);
 
 		if (isMoreAccurate) {
 			return true;
@@ -182,10 +193,10 @@ public class OnRoute extends Activity implements LocationListener {
 	}
 
 	public boolean isFromSpaceProvider(Location loc1, Location loc2) {
-	 if (loc1.getProvider().equals(loc2.getProvider())) {
-	 return true;
-	}
-	  return false;
+		if (loc1.getProvider().equals(loc2.getProvider())) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
