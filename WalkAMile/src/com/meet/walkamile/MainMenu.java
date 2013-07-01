@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,4 +49,14 @@ public class MainMenu extends Activity {
     //    return true;
    // }
     
+    
+    // do not touch the  code below - design team.
+    public void changePic(View view){
+        ImageButton button = (ImageButton)findViewById(R.id.startButton);
+        button.setImageResource(R.drawable.help);
+        setContentView(R.layout.activity_on_route);
+        
+    }
+    
+        
 }
