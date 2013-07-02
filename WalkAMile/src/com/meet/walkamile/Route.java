@@ -38,24 +38,7 @@ public class Route {
         .position(new LatLng(curPos.getLatitude(), curPos.getLongitude()))
         .title(name)
         .snippet(times)
-        .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo)));
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		e.getNameOfExercise();
-		e.getNumberOfReps();
+        );
 
 	}
 

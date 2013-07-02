@@ -5,6 +5,7 @@ import java.util.Random;
 
 
 public class Exercise {
+	
 	String nameOfExercise;
 	int numberOfReps;
 	static Random random = new Random();

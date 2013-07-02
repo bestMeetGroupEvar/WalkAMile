@@ -88,6 +88,21 @@ public class RouteManager {
 
 		query2.clearCachedResult();
 	}
+	
+	public boolean checkAvalible(String name) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Route");
+
+		try {
+			for(int i=0; i< query.count(); i++) {
+				if(	query.find().get(i).get("route").equals(name.trim())){
+					return false;
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	public void record(Position pos, GoogleMap map) {
 		if (recording.getPositions().get(recording.getPositions().size() - 1)
