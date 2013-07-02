@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseInstallation;
@@ -78,6 +81,8 @@ public class OnRoute extends Activity implements LocationListener {
 			public void onClick(View v) {
 				mMap.clear();
 				drawRoute();
+				drawHumanMarker();
+				
 			}
 		};
 		redraw.setOnClickListener(buttonListener3);
@@ -189,9 +194,51 @@ public class OnRoute extends Activity implements LocationListener {
 		} else if (isNewer) {
 			return true;
 		}
+		
 		return false;
 	}
 
+	
+	
+	
+	
+	public void drawHumanMarker(){
+		Marker human = mMap.addMarker(new MarkerOptions()
+        .position(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
+        .title("me")
+        .snippet("Population: 4,137,400")
+        .icon(BitmapDescriptorFactory.fromResource(R.drawable.)));
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public boolean isFromSpaceProvider(Location loc1, Location loc2) {
 		if (loc1.getProvider().equals(loc2.getProvider())) {
 			return true;
