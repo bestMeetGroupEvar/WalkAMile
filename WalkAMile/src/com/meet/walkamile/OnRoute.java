@@ -1,12 +1,15 @@
 package com.meet.walkamile;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
@@ -27,8 +30,10 @@ public class OnRoute extends Activity implements LocationListener {
 
 	private GoogleMap mMap;
 	private Location currentLocation;
+	private Marker human;
 	private RouteManager rm;
 	private int count;
+	private boolean userTouch = false;
 
 	public OnRoute() {
 	}
@@ -79,34 +84,39 @@ public class OnRoute extends Activity implements LocationListener {
 			public void onClick(View v) {
 				mMap.clear();
 				drawRoute();
-				drawHumanMarker();
-				
 			}
 		};
 		redraw.setOnClickListener(buttonListener3);
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
-
+		
 		getCurrentLocation();
+		
+		human = mMap.addMarker(new MarkerOptions()
+        .position(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
+        .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo)));
+		
 		updateMap();
 	}
 
 	public void updateMap() {
 		if (currentLocation != null) {
-			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(new LatLng(currentLocation.getLatitude(),
-							currentLocation.getLongitude())) // Sets the center
-																// of
-																// the map to
-																// Mountain View
-					.zoom(25) // Sets the zoom
-					.bearing(90) // Sets the orientation of the camera to east
-					.tilt(30) // Sets the tilt of the camera to 30 degrees
-					.build(); // Creates a CameraPosition from the builder
-			mMap.animateCamera(CameraUpdateFactory
-					.newCameraPosition(cameraPosition));
-
+			
+			if (!userTouch) {
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+						.target(new LatLng(currentLocation.getLatitude(),
+								currentLocation.getLongitude())) // Sets the center
+																	// of
+																	// the map to
+																	// Mountain View
+						.zoom(25) // Sets the zoom
+						.bearing(90) // Sets the orientation of the camera to east
+						.tilt(30) // Sets the tilt of the camera to 30 degrees
+						.build(); // Creates a CameraPosition from the builder
+				mMap.animateCamera(CameraUpdateFactory
+						.newCameraPosition(cameraPosition));
+			}
 			/*
 			 * character.setPosition(new LatLng(currentLocation.getLatitude(),
 			 * currentLocation.getLongitude()));
@@ -121,8 +131,8 @@ public class OnRoute extends Activity implements LocationListener {
 				}
 			}
 
-			// drawRoute(); may edit!
-
+			drawHumanMarker();
+			
 		}
 
 	}
@@ -201,40 +211,11 @@ public class OnRoute extends Activity implements LocationListener {
 	
 	
 	public void drawHumanMarker(){
-		mMap.addMarker(new MarkerOptions()
+		human.remove();
+		human = mMap.addMarker(new MarkerOptions()
         .position(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
-        .title("me")
-       .snippet("Population: 4,137,400")
         .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo)));
-
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public boolean isFromSpaceProvider(Location loc1, Location loc2) {
@@ -253,19 +234,16 @@ public class OnRoute extends Activity implements LocationListener {
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
 
 	}
 

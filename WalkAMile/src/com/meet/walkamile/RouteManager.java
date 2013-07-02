@@ -173,9 +173,17 @@ public class RouteManager {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						String value = input.getText().toString();
-						loadedRoutes.get(loadedRoutes.size() - 1)
-								.setName(value);
-						saveRoute(loadedRoutes.get(loadedRoutes.size() - 1));
+						if (checkAvalible(value)) {
+							AlertDialog alertDialog = new AlertDialog.Builder(routeActivity)
+							.create();
+							alertDialog.setMessage("Route name is taken!");
+							alertDialog.show();
+							reciveName();
+						} else {
+							loadedRoutes.get(loadedRoutes.size() - 1)
+									.setName(value);
+							saveRoute(loadedRoutes.get(loadedRoutes.size() - 1));
+						}
 					}
 				});
 
