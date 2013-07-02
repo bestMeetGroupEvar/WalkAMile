@@ -3,6 +3,7 @@ package com.meet.walkamile;
 import java.util.ArrayList;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -16,12 +17,13 @@ public class Route {
 	private String name;
 	boolean routeFinished = false;
 	private double timeInMinutes;
+	ExerciseManager em;
 
 	public Route(ArrayList<Position> locs, String name) {
 		this.positions = locs;
 		this.name = name;
+		this.em=new ExerciseManager();
 	}
-
 	public Route() {
 	}
 
@@ -29,9 +31,31 @@ public class Route {
 	public void addStop(Position curPos, GoogleMap map) {
 
 		this.stops.add(curPos);
-		map.addMarker(new MarkerOptions().position(
-				new LatLng(curPos.getLatitude(), curPos.getLongitude())).title(
-				"Activity " + this.stops.size()));
+		Exercise e=em.randomExercise();
+		String name=e.getNameOfExercise();
+		String times=String.valueOf(e.getNumberOfReps())+"times";
+		map.addMarker(new MarkerOptions()
+        .position(new LatLng(curPos.getLatitude(), curPos.getLongitude()))
+        .title(name)
+        .snippet(times)
+        .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo)));
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		e.getNameOfExercise();
+		e.getNumberOfReps();
 
 	}
 

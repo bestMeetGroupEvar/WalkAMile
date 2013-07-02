@@ -7,13 +7,11 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -203,11 +201,11 @@ public class OnRoute extends Activity implements LocationListener {
 	
 	
 	public void drawHumanMarker(){
-		Marker human = mMap.addMarker(new MarkerOptions()
+		mMap.addMarker(new MarkerOptions()
         .position(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
         .title("me")
-        .snippet("Population: 4,137,400")
-        .icon(BitmapDescriptorFactory.fromResource(R.drawable.)));
+       .snippet("Population: 4,137,400")
+        .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo)));
 
 		
 	}

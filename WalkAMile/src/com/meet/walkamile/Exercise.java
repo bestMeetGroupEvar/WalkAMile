@@ -3,27 +3,27 @@ package com.meet.walkamile;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class Exercise {
 	String nameOfExercise;
 	int numberOfReps;
 	static Random random = new Random();
-	static int x = random.nextInt(9);
-
-	public Exercise(String nameOfExercise, int numberOfReps) {
-		this.nameOfExercise = nameOfExercise;
-		this.numberOfReps = numberOfReps;
-	}
 
 	public Exercise() {
+		this.nameOfExercise = exerciseRandomizer();
+		this.numberOfReps = repsRandomizer();
 	}
 
-	public static int repsRandomizer() {
+	
+
+	public int repsRandomizer() {
 		Random random = new Random();
 		return random.nextInt(16);
 
 	}
 
-	public static String exerciseRandomizer() {
+	public String exerciseRandomizer() {
+		int x = random.nextInt(9);
 		ArrayList<String> exercises = new ArrayList<String>();
 		exercises.add("Jumping Jacks");
 		exercises.add("Pushups");
